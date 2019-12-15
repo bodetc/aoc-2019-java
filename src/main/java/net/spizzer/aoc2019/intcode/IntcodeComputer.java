@@ -5,11 +5,6 @@ import java.util.List;
 
 public class IntcodeComputer {
 
-    public enum ReturnReason {
-        EXIT,
-        WAIT_FOR_INPUT,
-    }
-
     private final Program program;
     private final List<Long> output = new ArrayList<>();
     private int position = 0;
