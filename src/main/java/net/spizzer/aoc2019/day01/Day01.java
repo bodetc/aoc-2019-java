@@ -14,7 +14,7 @@ public class Day01 extends AbstractDay<List<Integer>, Integer> {
 
     @Override
     public List<Integer> parseInput(List<String> lines) {
-        return ParseUtils.linesToInteger(lines);
+        return ParseUtils.linesToIntegers(lines);
     }
 
     @Override

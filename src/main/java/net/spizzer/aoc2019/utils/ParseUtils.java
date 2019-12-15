@@ -21,15 +21,23 @@ public class ParseUtils {
         }
     }
 
-    public static List<Long> linesToLong(List<String> lines) {
+    public static List<Long> linesToLongs(List<String> lines) {
         return lines.stream()
                 .map(Long::parseLong)
                 .collect(Collectors.toList());
     }
 
-    public static List<Integer> linesToInteger(List<String> lines) {
+    public static List<Integer> linesToIntegers(List<String> lines) {
         return lines.stream()
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    public static int[] lineToIntegers(String line) {
+        return line.chars()
+                .mapToObj(i -> (char) i)
+                .map(c -> Character.toString(c))
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 }
