@@ -8,6 +8,7 @@ import net.spizzer.aoc2019.day05.Day05;
 import net.spizzer.aoc2019.day06.Day06;
 import net.spizzer.aoc2019.day07.Day07;
 import net.spizzer.aoc2019.day08.Day08;
+import net.spizzer.aoc2019.day09.Day09;
 import net.spizzer.aoc2019.day10.Day10;
 import net.spizzer.aoc2019.day12.Day12;
 import net.spizzer.aoc2019.day14.Day14;
@@ -32,6 +33,7 @@ class RegressionTests {
                 arguments(new Day06(), 245089, 511),
                 arguments(new Day07(), 437860L, 49810599L),
                 arguments(new Day08(), "2159", "CJZHR"),
+                arguments(new Day09(), 2752191671L, 87571L),
                 arguments(new Day10(), 214, 502),
                 arguments(new Day12(), 6423L, 327636285682704L),
                 arguments(new Day14(), 301997L, 6216589L)
