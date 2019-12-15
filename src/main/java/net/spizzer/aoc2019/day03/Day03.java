@@ -3,8 +3,8 @@ package net.spizzer.aoc2019.day03;
 import net.spizzer.aoc2019.AbstractDay;
 import net.spizzer.aoc2019.common.Pair;
 import net.spizzer.aoc2019.common.Reject;
-import net.spizzer.aoc2019.geometry2d.Line2D;
-import net.spizzer.aoc2019.geometry2d.Point2D;
+import net.spizzer.aoc2019.helpers.geometry2d.Line2D;
+import net.spizzer.aoc2019.helpers.geometry2d.Point2D;
 
 import java.util.List;
 import java.util.function.Predicate;

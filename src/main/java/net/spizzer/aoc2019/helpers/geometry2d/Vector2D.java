@@ -1,4 +1,4 @@
-package net.spizzer.aoc2019.geometry2d;
+package net.spizzer.aoc2019.helpers.geometry2d;
 
 class Vector2D {
     final Direction2D direction;

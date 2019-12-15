@@ -1,4 +1,4 @@
-package net.spizzer.aoc2019.geometry2d;
+package net.spizzer.aoc2019.helpers.geometry2d;
 
 import net.spizzer.aoc2019.utils.MathUtils;
 

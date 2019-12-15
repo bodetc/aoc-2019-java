@@ -9,6 +9,12 @@ public class Reject {
         }
     }
 
+    public static void ifTrue(boolean condition, String message) {
+        if (condition) {
+            always(message);
+        }
+    }
+
     public static void always(String message) {
         throw new IllegalStateException(message);
     }
