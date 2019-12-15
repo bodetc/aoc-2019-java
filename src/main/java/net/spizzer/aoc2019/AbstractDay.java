@@ -14,14 +14,20 @@ public abstract class AbstractDay<INPUT, OUTPUT> {
 
     public abstract OUTPUT solveSecondStar(INPUT input);
 
-    public void runDay() {
+    void runDay() {
         INPUT input = getParsedInput();
 
+        String welcome = String.format("Solutions for Day %d:", getDay());
+        System.out.println(welcome);
+        System.out.println("*".repeat(welcome.length()));
+
         OUTPUT firstStar = solveFirstStar(input);
-        System.out.println("Solution for first star: " + firstStar);
+        System.out.println("First star: " + firstStar);
 
         OUTPUT secondStar = solveSecondStar(input);
-        System.out.println("Solution for second star: " + secondStar);
+        System.out.println("Second star: " + secondStar);
+
+        System.out.println();
     }
 
     @VisibleForTesting

@@ -5,7 +5,7 @@ plugins {
 group 'net.spizzer'
 version '0.1.0-SNAPSHOT'
 
-sourceCompatibility = 9
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
