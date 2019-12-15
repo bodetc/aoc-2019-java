@@ -27,4 +27,27 @@ public class MathUtils {
             return angle;
         }
     }
+
+    public static long leastCommonMultiplier(long m, long n) {
+        if (m == n) {
+            return m;
+        }
+        if (m == 1 || n == 1) {
+            return m * n;
+        }
+
+        // this section increases the value of mm until it is greater
+        // than or equal to nn, then does it again when the lesser
+        // becomes the greater--if they aren't equal.
+        long mm = m, nn = n;
+        while (mm != nn) {
+            while (mm < nn) {
+                mm += m;
+            }
+            while (nn < mm) {
+                nn += n;
+            }
+        }
+        return mm;
+    }
 }

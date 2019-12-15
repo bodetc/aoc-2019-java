@@ -47,6 +47,14 @@ public class Moon {
         return position.taxiNorm() * velocity.taxiNorm();
     }
 
+    public Point3D getPosition() {
+        return position;
+    }
+
+    public Point3D getVelocity() {
+        return velocity;
+    }
+
     private boolean equals(Moon other) {
         return position.equals(other.position) && velocity.equals(other.velocity);
     }

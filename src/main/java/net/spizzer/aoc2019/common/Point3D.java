@@ -1,11 +1,21 @@
 package net.spizzer.aoc2019.common;
 
+import com.google.common.collect.ImmutableList;
+
+import java.util.List;
+import java.util.function.ToIntFunction;
+
 public class Point3D {
     public final int x;
     public final int y;
     public final int z;
 
     public static final Point3D ORIGIN = new Point3D(0, 0, 0);
+    public static final List<ToIntFunction<Point3D>> TO_COMPONENTS = ImmutableList.of(
+            p -> p.x,
+            p -> p.y,
+            p -> p.z
+    );
 
     public Point3D(int x, int y, int z) {
         this.x = x;

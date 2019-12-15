@@ -2,16 +2,16 @@ package net.spizzer.aoc2019.helpers.orbits;
 
 import net.spizzer.aoc2019.common.Point3D;
 import net.spizzer.aoc2019.utils.ParseUtils;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class MoonOrbitsTest {
@@ -28,7 +28,7 @@ class MoonOrbitsTest {
         List<String> lines = ParseUtils.readLines(resultPath);
         for (int i = 0; i < lines.size(); i += 5) {
             int step = getStep(lines.get(i));
-            MoonOrbits moonOrbits = new MoonOrbits(ParseUtils.readLines(inputPath));
+            MoonOrbits moonOrbits = getMoonOrbits(inputPath);
             moonOrbits.timesteps(step);
 
             Moon moon1 = getMoon(lines.get(i + 1));
@@ -55,9 +55,23 @@ class MoonOrbitsTest {
     @ParameterizedTest
     @MethodSource("dataProviderEnergy")
     void testEnergy(String inputPath, int timesteps, int energy) {
-        MoonOrbits field = new MoonOrbits(ParseUtils.readLines(inputPath));
-        field.timesteps(timesteps);
-        assertEquals(energy, field.energy());
+        MoonOrbits moonOrbits = getMoonOrbits(inputPath);
+        moonOrbits.timesteps(timesteps);
+        assertEquals(energy, moonOrbits.energy());
+    }
+
+    static Stream<Arguments> dataFindCycleTime() {
+        return Stream.of(
+                arguments("helpers/orbits/test-input1.txt", 2772L),
+                arguments("helpers/orbits/test-input2.txt", 4686774924L)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataFindCycleTime")
+    void testFindCycleTime(String inputPath, long cycle) {
+        MoonOrbits moonOrbits = getMoonOrbits(inputPath);
+        assertEquals(cycle, moonOrbits.findCycleTime());
     }
 
     private static final Pattern STEPS_FORMAT = Pattern.compile("After ([-+]?\\d+) steps:");
@@ -77,5 +91,13 @@ class MoonOrbitsTest {
         Point3D position = new Point3D(input[0], input[1], input[2]);
         Point3D velocity = new Point3D(input[3], input[4], input[5]);
         return new Moon(position, velocity);
+    }
+
+    private MoonOrbits getMoonOrbits(String inputPath) {
+        List<Point3D> coordinates = ParseUtils.readLines(inputPath)
+                .stream()
+                .map(ParseUtils::parseCoordinates)
+                .collect(Collectors.toList());
+        return new MoonOrbits(coordinates);
     }
 }
