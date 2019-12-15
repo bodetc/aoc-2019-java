@@ -4,6 +4,7 @@ import net.spizzer.aoc2019.day01.Day01;
 import net.spizzer.aoc2019.day02.Day02;
 import net.spizzer.aoc2019.day03.Day03;
 import net.spizzer.aoc2019.day04.Day04;
+import net.spizzer.aoc2019.day05.Day05;
 import net.spizzer.aoc2019.day06.Day06;
 import net.spizzer.aoc2019.day08.Day08;
 import net.spizzer.aoc2019.day10.Day10;
@@ -18,6 +19,7 @@ public class Aoc2019 {
             new Day02(),
             new Day03(),
             new Day04(),
+            new Day05(),
             new Day06(),
             new Day08(),
             new Day10(),
