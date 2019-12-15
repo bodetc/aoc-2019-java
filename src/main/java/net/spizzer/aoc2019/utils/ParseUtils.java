@@ -1,6 +1,7 @@
 package net.spizzer.aoc2019.utils;
 
 import net.spizzer.aoc2019.common.Point3D;
+import net.spizzer.aoc2019.common.Reject;
 
 import java.net.URI;
 import java.nio.file.Files;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ParseUtils {
     public static final Pattern COMMA_SEPARATOR = Pattern.compile(",");
@@ -26,10 +28,9 @@ public class ParseUtils {
         }
     }
 
-    public static List<Long> linesToLongs(List<String> lines) {
-        return lines.stream()
-                .map(Long::parseLong)
-                .collect(Collectors.toList());
+    public static long[] parseProgram(List<String> lines) {
+        Reject.ifDifferent(1, lines.size(), "Program should be a single line");
+        return lineToCommaSeparatedLongs(lines.get(0));
     }
 
     public static List<Integer> linesToIntegers(List<String> lines) {
@@ -63,5 +64,15 @@ public class ParseUtils {
             }
         }
         return groups;
+    }
+
+    public static long[] lineToCommaSeparatedLongs(String line) {
+        return parseCommaSeparatedValues(line)
+                .mapToLong(Long::parseLong)
+                .toArray();
+    }
+
+    private static Stream<String> parseCommaSeparatedValues(String line) {
+        return COMMA_SEPARATOR.splitAsStream(line);
     }
 }
