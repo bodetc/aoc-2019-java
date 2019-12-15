@@ -3,12 +3,12 @@ package net.spizzer.aoc2019.helpers.geometry2d;
 import net.spizzer.aoc2019.utils.MathUtils;
 
 public class Point2D {
-    final int x;
-    final int y;
+    public final int x;
+    public final int y;
 
     public static final Point2D ORIGIN = new Point2D(0, 0);
 
-    Point2D(int x, int y) {
+    public Point2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
