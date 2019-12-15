@@ -1,14 +1,19 @@
 package net.spizzer.aoc2019.utils;
 
+import net.spizzer.aoc2019.common.Point3D;
+
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ParseUtils {
     public static final Pattern COMMA_SEPARATOR = Pattern.compile(",");
+    private static final Pattern COORDINATES_FORMAT = Pattern.compile("<x=\\s*([-+]?\\d+), y=\\s*([-+]?\\d+), z=\\s*([-+]?\\d+)>");
 
     public static List<String> readLines(String path) {
         try {
@@ -39,5 +44,24 @@ public class ParseUtils {
                 .map(c -> Character.toString(c))
                 .mapToInt(Integer::parseInt)
                 .toArray();
+    }
+
+    public static Point3D parseCoordinates(String input) {
+        int[] split = getGroups(COORDINATES_FORMAT, input)
+                .stream()
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        return new Point3D(split[0], split[1], split[2]);
+    }
+
+    public static List<String> getGroups(Pattern pattern, String string) {
+        Matcher matcher = pattern.matcher(string);
+        List<String> groups = new ArrayList<>();
+        while(matcher.find()) {
+            for(int i=1; i<=matcher.groupCount(); i++) {
+                groups.add(matcher.group(i));
+            }
+        }
+        return groups;
     }
 }
