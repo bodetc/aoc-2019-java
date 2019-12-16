@@ -31,7 +31,7 @@ class RegressionTests {
                 arguments(new Day02(), 6327510, 4112),
                 arguments(new Day03(), 860, 9238),
                 arguments(new Day04(), 454L, 288L),
-                arguments(new Day05(), 13787043L, 3892695L),
+                arguments(new Day05(), 13787043, 3892695),
                 arguments(new Day06(), 245089, 511),
                 arguments(new Day07(), 437860L, 49810599L),
                 arguments(new Day08(), 2159L, "CJZHR"),

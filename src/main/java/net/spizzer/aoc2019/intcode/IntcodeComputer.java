@@ -111,7 +111,7 @@ public class IntcodeComputer {
         return output.get(output.size() - 1);
     }
 
-    public long getLastIntOutput() {
+    public int getLastIntOutput() {
         return Math.toIntExact(output.get(output.size() - 1));
     }
 

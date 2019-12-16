@@ -1,29 +1,32 @@
 package net.spizzer.aoc2019.day05;
 
 import net.spizzer.aoc2019.AbstractDay;
-import net.spizzer.aoc2019.intcode.early.EarlyIntcodeComputer;
+import net.spizzer.aoc2019.intcode.IntcodeComputer;
 import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
-public class Day05 extends AbstractDay<long[], Long, Long> {
+public class Day05 extends AbstractDay<IntcodeComputer, Integer, Integer> {
     @Override
     public int getDay() {
         return 5;
     }
 
     @Override
-    public long[] parseInput(List<String> lines) {
-        return ParseUtils.parseProgram(lines);
+    public IntcodeComputer parseInput(List<String> lines) {
+        long[] program = ParseUtils.parseProgram(lines);
+        return new IntcodeComputer(program);
     }
 
     @Override
-    public Long solveFirstStar(long[] program) {
-        return EarlyIntcodeComputer.runIO(program,1);
+    public Integer solveFirstStar(IntcodeComputer computer) {
+        computer.run(1);
+        return computer.getLastIntOutput();
     }
 
     @Override
-    public Long solveSecondStar(long[] program) {
-        return EarlyIntcodeComputer.runIO(program,5);
+    public Integer solveSecondStar(IntcodeComputer computer) {
+        computer.run(5);
+        return computer.getLastIntOutput();
     }
 }
