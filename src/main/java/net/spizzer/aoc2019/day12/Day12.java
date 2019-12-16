@@ -8,7 +8,7 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day12 extends AbstractDay<MoonOrbits, Long> {
+public class Day12 extends AbstractDay<MoonOrbits, Integer, Long> {
     @Override
     public int getDay() {
         return 12;
@@ -24,9 +24,9 @@ public class Day12 extends AbstractDay<MoonOrbits, Long> {
     }
 
     @Override
-    public Long solveFirstStar(MoonOrbits moonOrbits) {
+    public Integer solveFirstStar(MoonOrbits moonOrbits) {
         moonOrbits.timesteps(1000);
-        return (long)moonOrbits.energy();
+        return moonOrbits.energy();
     }
 
     @Override

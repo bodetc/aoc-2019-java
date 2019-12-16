@@ -11,7 +11,7 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.*;
 
-public class Day08 extends AbstractDay<List<Map<Point2D, Color>>, String> {
+public class Day08 extends AbstractDay<List<Map<Point2D, Color>>, Long, String> {
 
     private final int width, height;
 
@@ -55,14 +55,14 @@ public class Day08 extends AbstractDay<List<Map<Point2D, Color>>, String> {
     }
 
     @Override
-    public String solveFirstStar(List<Map<Point2D, Color>> input) {
+    public Long solveFirstStar(List<Map<Point2D, Color>> input) {
         // Find the layer with less zero
         Map<Point2D, Color> layer = input.stream()
                 .min(Comparator.comparingLong(l -> countOf(l, Color.BLACK)))
                 .orElseThrow();
 
         // Return the amount of ones times the amount of twos in that layer
-        return Long.toString(countOf(layer, Color.WHITE) * countOf(layer, Color.TRANSPARENT));
+        return countOf(layer, Color.WHITE) * countOf(layer, Color.TRANSPARENT);
     }
 
     private static long countOf(Map<Point2D, Color> layer, Color value) {

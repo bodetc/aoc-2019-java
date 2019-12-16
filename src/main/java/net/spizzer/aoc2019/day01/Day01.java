@@ -6,7 +6,7 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
-public class Day01 extends AbstractDay<List<Integer>, Integer> {
+public class Day01 extends AbstractDay<List<Integer>, Integer, Integer> {
     @Override
     public int getDay() {
         return 1;

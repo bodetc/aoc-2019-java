@@ -95,6 +95,10 @@ public class IntcodeComputer {
         return program.toArray();
     }
 
+    public void setProgram(int position, long value) {
+        program.set(position, ParameterMode.IMMEDIATE, value);
+    }
+
     public long[] getOutput() {
         return output.stream().mapToLong(Long::longValue).toArray();
     }

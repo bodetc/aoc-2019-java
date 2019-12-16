@@ -1,16 +1,14 @@
 package net.spizzer.aoc2019.day07;
 
 import net.spizzer.aoc2019.AbstractDay;
-import net.spizzer.aoc2019.intcode.ReturnReason;
 import net.spizzer.aoc2019.utils.MathUtils;
 import net.spizzer.aoc2019.utils.ParseUtils;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class Day07 extends AbstractDay<long[], Long> {
+public class Day07 extends AbstractDay<long[], Long, Long> {
 
     @Override
     public int getDay() {

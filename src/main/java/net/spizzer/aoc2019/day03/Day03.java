@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
-public class Day03 extends AbstractDay<Pair<Line2D, Line2D>, Integer> {
+public class Day03 extends AbstractDay<Pair<Line2D, Line2D>, Integer, Integer> {
     @Override
     public int getDay() {
         return 3;

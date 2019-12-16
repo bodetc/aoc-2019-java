@@ -28,18 +28,18 @@ class RegressionTests {
     static Stream<Arguments> dataProvider() {
         return Stream.of(
                 arguments(new Day01(), 3286680, 4927158),
-                arguments(new Day02(), 6327510L, 4112L),
+                arguments(new Day02(), 6327510, 4112),
                 arguments(new Day03(), 860, 9238),
                 arguments(new Day04(), 454L, 288L),
                 arguments(new Day05(), 13787043L, 3892695L),
                 arguments(new Day06(), 245089, 511),
                 arguments(new Day07(), 437860L, 49810599L),
-                arguments(new Day08(), "2159", "CJZHR"),
+                arguments(new Day08(), 2159L, "CJZHR"),
                 arguments(new Day09(), 2752191671L, 87571L),
-                arguments(new Day10(), 214, 502),
-                arguments(new Day11(), "2082", "FARBCFJK"),
-                arguments(new Day12(), 6423L, 327636285682704L),
-                arguments(new Day13(), 207, 10247),
+                arguments(new Day10(), 214L, 502),
+                arguments(new Day11(), 2082L, "FARBCFJK"),
+                arguments(new Day12(), 6423, 327636285682704L),
+                arguments(new Day13(), 207L, 10247),
                 arguments(new Day14(), 301997L, 6216589L)
         );
     }

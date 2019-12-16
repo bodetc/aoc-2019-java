@@ -4,7 +4,7 @@ import net.spizzer.aoc2019.intcode.IntcodeComputer;
 
 public class EarlyIntcodeComputer {
 
-    public static long runNounVerb(long[] instructions, long noun, long verb) {
+    public static int runNounVerb(long[] instructions, long noun, long verb) {
         long[]  program = instructions.clone();
         program[1] = noun;
         program[2] = verb;
@@ -12,7 +12,7 @@ public class EarlyIntcodeComputer {
         IntcodeComputer computer = new IntcodeComputer(program);
         computer.run();
 
-        return computer.getProgram()[0];
+        return Math.toIntExact(computer.getProgram()[0]);
     }
 
     public static long runIO(long[] instructions, long input) {

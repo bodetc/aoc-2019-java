@@ -9,7 +9,7 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
-public class Day13 extends AbstractDay<long[], Integer> {
+public class Day13 extends AbstractDay<ArcadeCabinet, Long, Integer> {
 
     private final boolean silent;
 
@@ -27,24 +27,23 @@ public class Day13 extends AbstractDay<long[], Integer> {
     }
 
     @Override
-    public long[] parseInput(List<String> lines) {
-        return ParseUtils.parseProgram(lines);
+    public ArcadeCabinet parseInput(List<String> lines) {
+        long[] program = ParseUtils.parseProgram(lines);
+        return new ArcadeCabinet(program);
     }
 
     @Override
-    public Integer solveFirstStar(long[] program) {
-        ArcadeCabinet cabinet = new ArcadeCabinet(program);
+    public Long solveFirstStar(ArcadeCabinet cabinet) {
         cabinet.run();
 
         printScreen(cabinet);
 
-        return Math.toIntExact(cabinet.getCount(Tile.BLOCK));
+        return cabinet.getCount(Tile.BLOCK);
     }
 
     @Override
-    public Integer solveSecondStar(long[] program) {
-        program[0] = 2; // Insert COINS
-        ArcadeCabinet cabinet = new ArcadeCabinet(program);
+    public Integer solveSecondStar(ArcadeCabinet cabinet) {
+        cabinet.insertCoins();
         ArtificialIntelligence ai = new ArtificialIntelligence(cabinet);
         Joystick joystick = Joystick.NEUTRAL;
 

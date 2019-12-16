@@ -5,38 +5,36 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
-public abstract class AbstractDay<INPUT, OUTPUT> {
+public abstract class AbstractDay<INPUT, FIRST, SECOND> {
     public abstract int getDay();
 
     public abstract INPUT parseInput(List<String> lines);
 
-    public abstract OUTPUT solveFirstStar(INPUT input);
+    public abstract FIRST solveFirstStar(INPUT input);
 
-    public abstract OUTPUT solveSecondStar(INPUT input);
+    public abstract SECOND solveSecondStar(INPUT input);
 
     protected void runDay() {
-        INPUT input = getParsedInput();
-
         String welcome = String.format("Solutions for Day %d:", getDay());
         System.out.println(welcome);
         System.out.println("*".repeat(welcome.length()));
 
-        OUTPUT firstStar = solveFirstStar(input);
+        FIRST firstStar = solveFirstStar();
         System.out.println("First star: " + firstStar);
 
-        OUTPUT secondStar = solveSecondStar(input);
+        SECOND secondStar = solveSecondStar();
         System.out.println("Second star: " + secondStar);
 
         System.out.println();
     }
 
     @VisibleForTesting
-    OUTPUT solveFirstStar() {
+    FIRST solveFirstStar() {
         return solveFirstStar(getParsedInput());
     }
 
     @VisibleForTesting
-    OUTPUT solveSecondStar() {
+    SECOND solveSecondStar() {
         return solveSecondStar(getParsedInput());
     }
 

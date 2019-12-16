@@ -5,7 +5,7 @@ import net.spizzer.aoc2019.helpers.reactions.ReactionSolver;
 
 import java.util.List;
 
-public class Day14 extends AbstractDay<ReactionSolver, Long> {
+public class Day14 extends AbstractDay<ReactionSolver, Long, Long> {
     @Override
     public int getDay() {
         return 14;

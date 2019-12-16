@@ -7,7 +7,7 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
-public class Day02 extends AbstractDay<long[], Long> {
+public class Day02 extends AbstractDay<long[], Integer, Integer> {
     @Override
     public int getDay() {
         return 2;
@@ -19,24 +19,24 @@ public class Day02 extends AbstractDay<long[], Long> {
     }
 
     @Override
-    public Long solveFirstStar(long[] program) {
+    public Integer solveFirstStar(long[] program) {
         return EarlyIntcodeComputer.runNounVerb(program, 12, 2);
     }
 
     @Override
-    public Long solveSecondStar(long[] program) {
-        Pair<Long, Long> pair = searchIntcode(program, 19690720);
-        long noun=pair.getA();
-        long verb=pair.getB();
+    public Integer solveSecondStar(long[] program) {
+        Pair<Integer, Integer> pair = searchIntcode(program, 19690720);
+        int noun = pair.getA();
+        int verb = pair.getB();
         System.out.println("noun=" + noun + ", verb=" + verb);
         return noun * 100 + verb;
     }
 
-    private static Pair<Long, Long> searchIntcode(long[] input, int targetOutput) {
-        for(long noun=0; noun<100; noun++) {
-            for(long verb=0; verb<100; verb++) {
-                long output = EarlyIntcodeComputer.runNounVerb(input, noun, verb);
-                if(output==targetOutput) {
+    private static Pair<Integer, Integer> searchIntcode(long[] input, int targetOutput) {
+        for (int noun = 0; noun < 100; noun++) {
+            for (int verb = 0; verb < 100; verb++) {
+                int output = EarlyIntcodeComputer.runNounVerb(input, noun, verb);
+                if (output == targetOutput) {
                     return new Pair<>(noun, verb);
                 }
             }

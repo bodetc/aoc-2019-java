@@ -6,7 +6,7 @@ import net.spizzer.aoc2019.helpers.laser.AsteroidLaser;
 
 import java.util.List;
 
-public class Day10 extends AbstractDay<AsteroidLaser, Integer> {
+public class Day10 extends AbstractDay<AsteroidLaser, Long, Integer> {
     @Override
     public int getDay() {
         return 10;
@@ -18,10 +18,10 @@ public class Day10 extends AbstractDay<AsteroidLaser, Integer> {
     }
 
     @Override
-    public Integer solveFirstStar(AsteroidLaser asteroidLaser) {
+    public Long solveFirstStar(AsteroidLaser asteroidLaser) {
         Point2D bestAsteroid = asteroidLaser.bestAsteroid();
         System.out.println("Best point: " + bestAsteroid);
-        return Math.toIntExact(asteroidLaser.visibleAsteroids(bestAsteroid));
+        return asteroidLaser.visibleAsteroids(bestAsteroid);
     }
 
     @Override

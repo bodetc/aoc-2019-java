@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Day04 extends AbstractDay<List<Integer>, Long> {
+public class Day04 extends AbstractDay<List<Integer>, Long, Long> {
     @Override
     public int getDay() {
         return 4;

@@ -17,6 +17,10 @@ public class ArcadeCabinet {
         computer = new IntcodeComputer(instructions);
     }
 
+    public void insertCoins() {
+        computer.setProgram(0, 2);
+    }
+
     public void run() {
         run(Joystick.NEUTRAL);
     }

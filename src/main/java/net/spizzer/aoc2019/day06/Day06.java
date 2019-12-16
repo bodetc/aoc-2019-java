@@ -6,7 +6,7 @@ import net.spizzer.aoc2019.helpers.tree.Tree;
 
 import java.util.List;
 
-public class Day06 extends AbstractDay<Tree<String>, Integer> {
+public class Day06 extends AbstractDay<Tree<String>, Integer, Integer> {
     @Override
     public int getDay() {
         return 6;
