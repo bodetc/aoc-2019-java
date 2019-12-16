@@ -99,8 +99,16 @@ public class IntcodeComputer {
         return output.stream().mapToLong(Long::longValue).toArray();
     }
 
+    public int[] getIntOutput() {
+        return output.stream().mapToInt(Math::toIntExact).toArray();
+    }
+
     public long getLastOutput() {
         return output.get(output.size() - 1);
+    }
+
+    public long getLastIntOutput() {
+        return Math.toIntExact(output.get(output.size() - 1));
     }
 
     public void clearOutput() {

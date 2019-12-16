@@ -14,7 +14,7 @@ public abstract class AbstractDay<INPUT, OUTPUT> {
 
     public abstract OUTPUT solveSecondStar(INPUT input);
 
-    void runDay() {
+    protected void runDay() {
         INPUT input = getParsedInput();
 
         String welcome = String.format("Solutions for Day %d:", getDay());
