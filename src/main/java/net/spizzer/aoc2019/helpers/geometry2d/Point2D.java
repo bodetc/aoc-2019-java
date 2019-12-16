@@ -17,7 +17,7 @@ public class Point2D {
         return Math.abs(other.x - x) + Math.abs(other.y - y);
     }
 
-    Point2D addVector(Vector2D vector) {
+    public Point2D addVector(Vector2D vector) {
         switch (vector.direction) {
             case R:
                 return new Point2D(x + vector.distance, y);

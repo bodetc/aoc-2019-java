@@ -1,10 +1,10 @@
 package net.spizzer.aoc2019.helpers.geometry2d;
 
-class Vector2D {
+public class Vector2D {
     final Direction2D direction;
     final int distance;
 
-    private Vector2D(Direction2D direction, int distance) {
+    public Vector2D(Direction2D direction, int distance) {
         this.direction = direction;
         this.distance = distance;
     }
