@@ -6,7 +6,7 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
-public class Day15 extends AbstractDay<MazeSolver, Integer, Void> {
+public class Day15 extends AbstractDay<MazeSolver, Integer, Integer> {
     @Override
     public int getDay() {
         return 15;
@@ -20,11 +20,11 @@ public class Day15 extends AbstractDay<MazeSolver, Integer, Void> {
 
     @Override
     public Integer solveFirstStar(MazeSolver mazeSolver) {
-        return mazeSolver.solve();
+        return mazeSolver.timeToTarget();
     }
 
     @Override
-    public Void solveSecondStar(MazeSolver mazeSolver) {
-        return null;
+    public Integer solveSecondStar(MazeSolver mazeSolver) {
+        return mazeSolver.timeToExplore();
     }
 }

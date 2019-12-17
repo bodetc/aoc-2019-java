@@ -42,7 +42,7 @@ class RegressionTests {
                 arguments(new Day12(), 6423, 327636285682704L),
                 arguments(new Day13(), 207L, 10247),
                 arguments(new Day14(), 301997L, 6216589L),
-                arguments(new Day15(), 244, null)
+                arguments(new Day15(), 244, 278)
         );
     }
 

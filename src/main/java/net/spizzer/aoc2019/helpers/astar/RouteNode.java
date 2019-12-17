@@ -1,8 +1,10 @@
 package net.spizzer.aoc2019.helpers.astar;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
-class RouteNode<T extends GraphNode> implements Comparable<RouteNode> {
+public class RouteNode<T extends GraphNode> implements Comparable<RouteNode> {
     private final T current;
     private RouteNode<T> previous;
     private int score;
@@ -17,24 +19,30 @@ class RouteNode<T extends GraphNode> implements Comparable<RouteNode> {
         this.score = score;
     }
 
+    public  List<T> getRoute() {
+        List<T> route = new ArrayList<>();
+        RouteNode<T> current = this;
+        do {
+            route.add(0, current.getCurrent());
+            current = current.previous;
+        } while (current != null);
+        return route;
+    }
+
     @Override
     public int compareTo(@Nonnull RouteNode other) {
         return Integer.compare(this.score, other.score);
     }
 
-    T getCurrent() {
+    public T getCurrent() {
         return current;
-    }
-
-    RouteNode<T> getPrevious() {
-        return previous;
     }
 
     void setPrevious(RouteNode<T> previous) {
         this.previous = previous;
     }
 
-    int getScore() {
+    public int getScore() {
         return score;
     }
 

@@ -6,17 +6,25 @@ import java.util.function.Predicate;
 public class RouteFinder<K, T extends GraphNode<K>> {
     private final Graph<K, T> graph;
     private final Scorer<T> scorer;
-    private final Predicate<T> isDestination;
 
-    public RouteFinder(Graph<K, T> graph, Scorer<T> scorer, Predicate<T> isDestination) {
+    private final Queue<RouteNode<T>> openSet = new PriorityQueue<>();
+    private final Map<K, RouteNode<T>> allNodes = new HashMap<>();
+    private Optional<RouteNode<T>> target = Optional.empty();
+
+    public RouteFinder(Graph<K, T> graph, Scorer<T> scorer) {
         this.graph = graph;
         this.scorer = scorer;
-        this.isDestination = isDestination;
     }
 
-    protected List<T> findRoute(T from) {
-        Queue<RouteNode<T>> openSet = new PriorityQueue<>();
-        Map<K, RouteNode<T>> allNodes = new HashMap<>();
+    public enum RouteFinderResult {
+        FOUND,
+        NOT_FOUND
+    }
+
+    protected RouteFinderResult findRoute(T from, Predicate<T> isDestination) {
+        allNodes.clear();
+        openSet.clear();
+        target = Optional.empty();
 
         RouteNode<T> start = new RouteNode<>(from, null, 0);
         openSet.add(start);
@@ -25,7 +33,8 @@ public class RouteFinder<K, T extends GraphNode<K>> {
         while (!openSet.isEmpty()) {
             RouteNode<T> current = openSet.poll();
             if (isDestination.test(current.getCurrent())) {
-                return getRoute(current);
+                target = Optional.of(current);
+                return RouteFinderResult.FOUND;
             }
 
             Set<T> connections = graph.getConnections(current.getCurrent());
@@ -40,16 +49,14 @@ public class RouteFinder<K, T extends GraphNode<K>> {
                 }
             }
         }
-        throw new IllegalStateException("No route found");
+        return RouteFinderResult.NOT_FOUND;
     }
 
-    private List<T> getRoute(RouteNode<T> next) {
-        List<T> route = new ArrayList<>();
-        RouteNode<T> current = next;
-        do {
-            route.add(0, current.getCurrent());
-            current = current.getPrevious();
-        } while (current != null);
-        return route;
+    protected RouteNode<T> getTarget() {
+        return target.orElseThrow();
+    }
+
+    protected Set<RouteNode<T>> getAllNodes() {
+        return new HashSet<>(allNodes.values());
     }
 }
