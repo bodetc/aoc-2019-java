@@ -13,6 +13,11 @@ public class IntcodeComputer {
         this.program = new Program(instructions);
     }
 
+    public IntcodeComputer(IntcodeComputer other) {
+        this.program = new Program(other.program.toArray());
+        this.position = other.position;
+    }
+
     public ReturnReason run() {
         return run(null);
     }

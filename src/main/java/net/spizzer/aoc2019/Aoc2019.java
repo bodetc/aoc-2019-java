@@ -14,25 +14,27 @@ import net.spizzer.aoc2019.day11.Day11;
 import net.spizzer.aoc2019.day12.Day12;
 import net.spizzer.aoc2019.day13.Day13;
 import net.spizzer.aoc2019.day14.Day14;
+import net.spizzer.aoc2019.day15.Day15;
 
 import java.util.List;
 
 public class Aoc2019 {
     private static final List<AbstractDay> days = List.of(
-            new Day01(),
-            new Day02(),
-            new Day03(),
-            new Day04(),
-            new Day05(),
-            new Day06(),
-            new Day07(),
-            new Day08(),
-            new Day09(),
-            new Day10(),
-            new Day11(),
-            new Day12(),
-            new Day13(),
-            new Day14()
+//            new Day01(),
+//            new Day02(),
+//            new Day03(),
+//            new Day04(),
+//            new Day05(),
+//            new Day06(),
+//            new Day07(),
+//            new Day08(),
+//            new Day09(),
+//            new Day10(),
+//            new Day11(),
+//            new Day12(),
+//            new Day13(),
+//            new Day14(),
+            new Day15()
     );
 
     public static void main(String[] args) {

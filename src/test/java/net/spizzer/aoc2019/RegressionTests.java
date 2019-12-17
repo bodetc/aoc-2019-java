@@ -14,6 +14,7 @@ import net.spizzer.aoc2019.day11.Day11;
 import net.spizzer.aoc2019.day12.Day12;
 import net.spizzer.aoc2019.day13.Day13;
 import net.spizzer.aoc2019.day14.Day14;
+import net.spizzer.aoc2019.day15.Day15;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -40,7 +41,8 @@ class RegressionTests {
                 arguments(new Day11(), 2082L, "FARBCFJK"),
                 arguments(new Day12(), 6423, 327636285682704L),
                 arguments(new Day13(), 207L, 10247),
-                arguments(new Day14(), 301997L, 6216589L)
+                arguments(new Day14(), 301997L, 6216589L),
+                arguments(new Day15(), 244, null)
         );
     }
 

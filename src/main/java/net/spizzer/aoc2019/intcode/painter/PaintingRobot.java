@@ -53,7 +53,7 @@ public class PaintingRobot {
         }
 
         // Move
-        position = position.addVector(new Vector2D(direction, 1));
+        position = position.addDirection(direction);
 
         // Clear output
         computer.clearOutput();
