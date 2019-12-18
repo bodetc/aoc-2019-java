@@ -5,10 +5,10 @@ import net.spizzer.aoc2019.AbstractDay;
 import net.spizzer.aoc2019.common.Reject;
 import net.spizzer.aoc2019.utils.ParseUtils;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
-public class Day16 extends AbstractDay<int[], String, Void> {
+public class Day16 extends AbstractDay<int[], Integer, Integer> {
 
     private static final int[] BASE_PATTERN = new int[]{0, 1, 0, -1};
 
@@ -24,56 +24,59 @@ public class Day16 extends AbstractDay<int[], String, Void> {
     }
 
     @Override
-    public String solveFirstStar(int[] input) {
-        return applyPhases(input, 100);
-    }
-
-    @Override
-    public Void solveSecondStar(int[] input) {
-        return null;
-    }
-
-    @VisibleForTesting
-    static String applyPhases(int[] input, int amount) {
-        for (int i = 0; i < amount; i++) {
+    public Integer solveFirstStar(int[] input) {
+        for (int i = 0; i < 100; i++) {
             input = applyPhase(input);
         }
-        return first8digits(input);
+
+        int[] phases = input;
+        return Ndigits(phases, 0, 8);
     }
 
     @VisibleForTesting
     static int[] applyPhase(int[] input) {
         int[] output = new int[input.length];
         for (int i = 0; i < input.length; i++) {
-            output[i] = applyPattern(input, repeatPattern(i + 1));
-        }
-        return output;
-    }
-
-    private static int applyPattern(int[] input, int[] repeatPattern) {
-        int value = 0;
-        for (int i = 0; i < input.length; i++) {
-            value += input[i] * repeatPattern[(i + 1) % repeatPattern.length];
-        }
-        return Math.abs(value % 10);
-    }
-
-    private static int[] repeatPattern(int count) {
-        int[] output = new int[BASE_PATTERN.length * count];
-        for (int i = 0; i < BASE_PATTERN.length; i++) {
-            for (int j = 0; j < count; j++) {
-                output[count * i + j] = BASE_PATTERN[i];
+            int value = 0;
+            for (int j = 0; j < input.length; j++) {
+                value += input[j] * getPatternValue(j, i);
             }
+            output[i] = Math.abs(value % 10);
         }
         return output;
+    }
+
+    private static int getPatternValue(int i, int repeat) {
+        return BASE_PATTERN[((i + 1) / (repeat + 1)) % BASE_PATTERN.length];
+    }
+
+    @Override
+    public Integer solveSecondStar(final int[] input) {
+        int skip = Ndigits(input, 0, 7);
+
+        int[] signal = IntStream.range(0, input.length * 10000)
+                .map(i -> input[i % input.length])
+                .toArray();
+
+        for (int i = 0; i < 100; i++) {
+            int[] output = new int[signal.length];
+            int sum = 0;
+            for (int j = signal.length - 1; j >= skip; j--) {
+                sum += signal[j];
+                output[j] = sum % 10;
+            }
+            signal = output;
+        }
+
+        return Ndigits(signal, skip, 8);
     }
 
     @VisibleForTesting
-    static String first8digits(int[] input) {
+    static int Ndigits(int[] input, int start, int length) {
         StringBuilder output = new StringBuilder();
-        Arrays.stream(input)
-                .limit(8)
+        IntStream.range(start, start + length)
+                .map(i -> input[i % input.length])
                 .forEach(output::append);
-        return output.toString();
+        return Integer.parseInt(output.toString());
     }
 }
