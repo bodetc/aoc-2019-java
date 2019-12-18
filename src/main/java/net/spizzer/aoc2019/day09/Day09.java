@@ -14,8 +14,7 @@ public class Day09 extends AbstractDay<IntcodeComputer, Long, Long> {
 
     @Override
     public IntcodeComputer parseInput(List<String> lines) {
-        long[] program = ParseUtils.parseProgram(lines);
-        return new IntcodeComputer(program);
+        return new IntcodeComputer(ParseUtils.parseProgram(lines));
     }
 
     @Override

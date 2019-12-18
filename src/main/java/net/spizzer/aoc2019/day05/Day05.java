@@ -2,7 +2,6 @@ package net.spizzer.aoc2019.day05;
 
 import net.spizzer.aoc2019.AbstractDay;
 import net.spizzer.aoc2019.intcode.IntcodeComputer;
-import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
@@ -14,8 +13,7 @@ public class Day05 extends AbstractDay<IntcodeComputer, Integer, Integer> {
 
     @Override
     public IntcodeComputer parseInput(List<String> lines) {
-        long[] program = ParseUtils.parseProgram(lines);
-        return new IntcodeComputer(program);
+        return new IntcodeComputer(lines);
     }
 
     @Override

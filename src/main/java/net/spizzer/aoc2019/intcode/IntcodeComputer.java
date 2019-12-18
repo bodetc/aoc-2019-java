@@ -1,5 +1,7 @@
 package net.spizzer.aoc2019.intcode;
 
+import net.spizzer.aoc2019.utils.ParseUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,10 @@ public class IntcodeComputer {
     private final Program program;
     private final List<Long> output = new ArrayList<>();
     private int position = 0;
+
+    public IntcodeComputer(List<String> lines) {
+        this.program = new Program(ParseUtils.parseProgram(lines));
+    }
 
     public IntcodeComputer(long[] instructions) {
         this.program = new Program(instructions);
