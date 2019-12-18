@@ -42,7 +42,7 @@ public enum AsciiTile implements ValueBase<Integer>, Printable {
         for (int value : values) {
             AsciiTile tile = fromValue(value);
             if(tile==NEW_LINE) {
-                y++;
+                y--;
                 x=0;
             } else {
                 map.put(new Point2D(x, y), tile);
