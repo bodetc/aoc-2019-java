@@ -21,6 +21,12 @@ public class Reject {
         }
     }
 
+    public static <T> void ifNull(T object, String message) {
+        if(object==null) {
+            always(message);
+        }
+    }
+
     public static void always(String message) {
         throw new IllegalStateException(message);
     }

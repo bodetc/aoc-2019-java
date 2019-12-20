@@ -3,28 +3,18 @@ package net.spizzer.aoc2019.helpers.maze;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class RouteFinder<K, T extends GraphNode<K>, G extends Graph<K, T>> {
-    private final G graph;
+public class RouteFinder<K, T extends GraphNode<K>> {
+    private final Graph<K, T> graph;
     private final Scorer<T> scorer;
 
-    private final Queue<RouteNode<T>> openSet = new PriorityQueue<>();
-    private final Map<K, RouteNode<T>> allNodes = new HashMap<>();
-    private Optional<RouteNode<T>> target = Optional.empty();
-
-    public RouteFinder(G graph, Scorer<T> scorer) {
+    public RouteFinder(Graph<K, T> graph, Scorer<T> scorer) {
         this.graph = graph;
         this.scorer = scorer;
     }
 
-    public enum RouteFinderResult {
-        FOUND,
-        NOT_FOUND
-    }
-
-    protected RouteFinderResult findRoute(T from, Predicate<T> isDestination) {
-        allNodes.clear();
-        openSet.clear();
-        target = Optional.empty();
+    public RouteFinderResult<T> findRoute(T from, Predicate<T> isDestination) {
+        Queue<RouteNode<T>> openSet = new PriorityQueue<>();
+        Map<K, RouteNode<T>> allNodes = new HashMap<>();
 
         RouteNode<T> start = new RouteNode<>(from, null, 0);
         openSet.add(start);
@@ -33,8 +23,7 @@ public class RouteFinder<K, T extends GraphNode<K>, G extends Graph<K, T>> {
         while (!openSet.isEmpty()) {
             RouteNode<T> current = openSet.poll();
             if (isDestination.test(current.getCurrent())) {
-                target = Optional.of(current);
-                return RouteFinderResult.FOUND;
+                return new RouteFinderResult<>(null, current);
             }
 
             Set<T> connections = graph.getConnections(current.getCurrent());
@@ -49,18 +38,6 @@ public class RouteFinder<K, T extends GraphNode<K>, G extends Graph<K, T>> {
                 }
             }
         }
-        return RouteFinderResult.NOT_FOUND;
-    }
-
-    protected RouteNode<T> getTarget() {
-        return target.orElseThrow();
-    }
-
-    protected Set<RouteNode<T>> getAllNodes() {
-        return new HashSet<>(allNodes.values());
-    }
-
-    protected G getGraph() {
-        return graph;
+        return new RouteFinderResult<>(allNodes.values(), null);
     }
 }
