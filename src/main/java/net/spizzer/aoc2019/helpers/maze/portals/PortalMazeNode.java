@@ -5,17 +5,17 @@ import net.spizzer.aoc2019.helpers.maze.GraphNode;
 
 import java.util.Objects;
 
-public class MazeNode implements GraphNode<MazeNode> {
+public class PortalMazeNode implements GraphNode<PortalMazeNode> {
     private final Point2D point;
     private final int level;
 
-    public MazeNode(Point2D point, int level) {
+    public PortalMazeNode(Point2D point, int level) {
         this.point = point;
         this.level = level;
     }
 
     @Override
-    public MazeNode getKey() {
+    public PortalMazeNode getKey() {
         return this;
     }
 
@@ -27,13 +27,13 @@ public class MazeNode implements GraphNode<MazeNode> {
         return level;
     }
 
-    private boolean equals(MazeNode other) {
+    private boolean equals(PortalMazeNode other) {
         return this.point.equals(other.point) && this.level == other.level;
     }
 
     @Override
     public boolean equals(Object other) {
-        return other instanceof MazeNode && equals((MazeNode) other);
+        return other instanceof PortalMazeNode && equals((PortalMazeNode) other);
     }
 
     @Override

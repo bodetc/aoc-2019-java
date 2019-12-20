@@ -1,7 +1,7 @@
 package net.spizzer.aoc2019.day20;
 
 import net.spizzer.aoc2019.AbstractDay;
-import net.spizzer.aoc2019.helpers.maze.portals.MazeSolver;
+import net.spizzer.aoc2019.helpers.maze.portals.PortalMazeSolver;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ public class Day20 extends AbstractDay<List<String>, Integer, Integer> {
 
     @Override
     public Integer solveFirstStar(List<String> lines) {
-        MazeSolver mazeSolver = new MazeSolver(lines, true);
+        PortalMazeSolver mazeSolver = new PortalMazeSolver(lines, true);
         return mazeSolver.timeToTarget();
     }
 
     @Override
     public Integer solveSecondStar(List<String> lines) {
-        MazeSolver mazeSolver = new MazeSolver(lines, false);
+        PortalMazeSolver mazeSolver = new PortalMazeSolver(lines, false);
         return mazeSolver.timeToTarget();
     }
 

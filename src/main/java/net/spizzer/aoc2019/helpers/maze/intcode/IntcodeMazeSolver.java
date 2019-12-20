@@ -7,23 +7,23 @@ import net.spizzer.aoc2019.helpers.maze.RouteNode;
 import net.spizzer.aoc2019.helpers.geometry2d.Point2D;
 import net.spizzer.aoc2019.intcode.IntcodeComputer;
 
-public class MazeSolver extends RouteFinder<Point2D, MazeNode, Maze> {
-    private final MazeNode origin;
+public class IntcodeMazeSolver extends RouteFinder<Point2D, IntcodeMazeNode, IntcodeMaze> {
+    private final IntcodeMazeNode origin;
 
-    public MazeSolver(long[] program) {
-        super(new Maze(), new ConstantScorer<>());
+    public IntcodeMazeSolver(long[] program) {
+        super(new IntcodeMaze(), new ConstantScorer<>());
         IntcodeComputer computer = new IntcodeComputer(program);
-        this.origin = new MazeNode(Point2D.ORIGIN, MazeTile.EMPTY, computer);
+        this.origin = new IntcodeMazeNode(Point2D.ORIGIN, IntcodeMazeTile.EMPTY, computer);
     }
 
     public int timeToTarget() {
-        RouteNode<MazeNode> target = findTarget();
+        RouteNode<IntcodeMazeNode> target = findTarget();
 
         return target.getRoute().size()-1;
     }
 
     public int timeToExplore() {
-        RouteNode<MazeNode> target = findTarget();
+        RouteNode<IntcodeMazeNode> target = findTarget();
         RouteFinderResult result;
 
         result = findRoute(target.getCurrent(), x -> false);
@@ -35,8 +35,8 @@ public class MazeSolver extends RouteFinder<Point2D, MazeNode, Maze> {
                 .orElseThrow();
     }
 
-    private RouteNode<MazeNode> findTarget() {
-        RouteFinderResult result = findRoute(origin, MazeNode::isTarget);
+    private RouteNode<IntcodeMazeNode> findTarget() {
+        RouteFinderResult result = findRoute(origin, IntcodeMazeNode::isTarget);
         Reject.ifDifferent(RouteFinderResult.FOUND, result, "Target was not found!");
         return getTarget();
     }

@@ -1,30 +1,30 @@
 package net.spizzer.aoc2019.day15;
 
 import net.spizzer.aoc2019.AbstractDay;
-import net.spizzer.aoc2019.helpers.maze.intcode.MazeSolver;
+import net.spizzer.aoc2019.helpers.maze.intcode.IntcodeMazeSolver;
 import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;
 
-public class Day15 extends AbstractDay<MazeSolver, Integer, Integer> {
+public class Day15 extends AbstractDay<IntcodeMazeSolver, Integer, Integer> {
     @Override
     public int getDay() {
         return 15;
     }
 
     @Override
-    public MazeSolver parseInput(List<String> lines) {
+    public IntcodeMazeSolver parseInput(List<String> lines) {
         long[] program = ParseUtils.parseProgram(lines);
-        return new MazeSolver(program);
+        return new IntcodeMazeSolver(program);
     }
 
     @Override
-    public Integer solveFirstStar(MazeSolver mazeSolver) {
+    public Integer solveFirstStar(IntcodeMazeSolver mazeSolver) {
         return mazeSolver.timeToTarget();
     }
 
     @Override
-    public Integer solveSecondStar(MazeSolver mazeSolver) {
+    public Integer solveSecondStar(IntcodeMazeSolver mazeSolver) {
         return mazeSolver.timeToExplore();
     }
 }

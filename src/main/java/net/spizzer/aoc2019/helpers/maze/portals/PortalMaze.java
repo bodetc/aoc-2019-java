@@ -9,17 +9,17 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Maze implements Graph<MazeNode, MazeNode> {
+public class PortalMaze implements Graph<PortalMazeNode, PortalMazeNode> {
 
     private final Set<Point2D> walkable;
     private final List<MazePortal> portals;
 
-    private final MazeNode start;
-    private final MazeNode end;
+    private final PortalMazeNode start;
+    private final PortalMazeNode end;
 
     private boolean flatWorld;
 
-    public Maze(List<String> lines, boolean flatWorld) {
+    public PortalMaze(List<String> lines, boolean flatWorld) {
         this.flatWorld = flatWorld;
         Map<Point2D, Character> input = ParseUtils.linesToCharMap(lines);
 
@@ -30,8 +30,8 @@ public class Maze implements Graph<MazeNode, MazeNode> {
 
 
         Map<String, List<Point2D>> labels = parseLabels(input);
-        start = new MazeNode(labels.get("AA").get(0), 0);
-        end = new MazeNode(labels.get("ZZ").get(0), 0);
+        start = new PortalMazeNode(labels.get("AA").get(0), 0);
+        end = new PortalMazeNode(labels.get("ZZ").get(0), 0);
 
         portals = getPortals(labels);
     }
@@ -57,21 +57,21 @@ public class Maze implements Graph<MazeNode, MazeNode> {
     }
 
     @Override
-    public Set<MazeNode> getConnections(MazeNode node) {
+    public Set<PortalMazeNode> getConnections(PortalMazeNode node) {
         Point2D current = node.getPoint();
 
-        Set<MazeNode> neighbours = Arrays.stream(Direction2D.values())
+        Set<PortalMazeNode> neighbours = Arrays.stream(Direction2D.values())
                 .map(current::addDirection)
                 .filter(walkable::contains)
-                .map(point -> new MazeNode(point, node.getLevel()))
+                .map(point -> new PortalMazeNode(point, node.getLevel()))
                 .collect(Collectors.toSet());
 
-        Set<MazeNode> portals = this.portals.stream()
+        Set<PortalMazeNode> portals = this.portals.stream()
                 .map(p -> p.traverse(node, flatWorld))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
 
-        Set<MazeNode> result = new HashSet<>();
+        Set<PortalMazeNode> result = new HashSet<>();
         result.addAll(neighbours);
         result.addAll(portals);
         return result;
@@ -105,11 +105,11 @@ public class Maze implements Graph<MazeNode, MazeNode> {
                 : "" + b + a;
     }
 
-    MazeNode getStart() {
+    PortalMazeNode getStart() {
         return start;
     }
 
-    MazeNode getEnd() {
+    PortalMazeNode getEnd() {
         return end;
     }
 }

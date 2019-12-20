@@ -13,22 +13,22 @@ class MazePortal {
         this.inner = inner;
     }
 
-    MazeNode traverse(MazeNode node, boolean flatWorld) {
+    PortalMazeNode traverse(PortalMazeNode node, boolean flatWorld) {
         Point2D point = node.getPoint();
         int level = node.getLevel();
         if (flatWorld) {
             if (outer.equals(point)) {
-                return new MazeNode(inner, level);
+                return new PortalMazeNode(inner, level);
             } else if (inner.equals(point)) {
-                return new MazeNode(outer, level);
+                return new PortalMazeNode(outer, level);
             } else {
                 return null;
             }
         } else {
             if (outer.equals(point) && level > 0) {
-                return new MazeNode(inner, level - 1);
+                return new PortalMazeNode(inner, level - 1);
             } else if (inner.equals(point) && level < MAX_DEPTH) {
-                return new MazeNode(outer, level + 1);
+                return new PortalMazeNode(outer, level + 1);
             } else {
                 return null;
             }

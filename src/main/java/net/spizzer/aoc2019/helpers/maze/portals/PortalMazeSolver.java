@@ -5,9 +5,9 @@ import net.spizzer.aoc2019.helpers.maze.RouteFinder;
 
 import java.util.List;
 
-public class MazeSolver extends RouteFinder<MazeNode, MazeNode, Maze> {
-    public MazeSolver(List<String> lines, boolean flatWorld) {
-        super(new Maze(lines, flatWorld), new ConstantScorer<>());
+public class PortalMazeSolver extends RouteFinder<PortalMazeNode, PortalMazeNode, PortalMaze> {
+    public PortalMazeSolver(List<String> lines, boolean flatWorld) {
+        super(new PortalMaze(lines, flatWorld), new ConstantScorer<>());
     }
 
     public Integer timeToTarget() {

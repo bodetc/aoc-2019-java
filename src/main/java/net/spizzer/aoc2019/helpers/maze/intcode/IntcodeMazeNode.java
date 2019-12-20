@@ -8,12 +8,12 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class MazeNode implements GraphNode<Point2D> {
+public class IntcodeMazeNode implements GraphNode<Point2D> {
     private final Point2D point;
-    private final MazeTile tile;
+    private final IntcodeMazeTile tile;
     private final IntcodeComputer computer;
 
-    public MazeNode(Point2D point, MazeTile tile, IntcodeComputer computer) {
+    public IntcodeMazeNode(Point2D point, IntcodeMazeTile tile, IntcodeComputer computer) {
         this.point = point;
         this.tile = tile;
         this.computer = computer;
@@ -25,21 +25,21 @@ public class MazeNode implements GraphNode<Point2D> {
     }
 
     public boolean isTarget() {
-        return tile == MazeTile.TARGET;
+        return tile == IntcodeMazeTile.TARGET;
     }
 
-    public Set<MazeNode> getConnections() {
-        return Arrays.stream(MazeDirection.values())
+    public Set<IntcodeMazeNode> getConnections() {
+        return Arrays.stream(IntcodeMazeDirection.values())
                 .map(this::createNode)
-                .filter(node -> node.tile != MazeTile.WALL)
+                .filter(node -> node.tile != IntcodeMazeTile.WALL)
                 .collect(Collectors.toSet());
     }
 
-    private MazeNode createNode(MazeDirection direction) {
+    private IntcodeMazeNode createNode(IntcodeMazeDirection direction) {
         IntcodeComputer computer = new IntcodeComputer(this.computer);
         Point2D point = direction.fromPoint(this.point);
         computer.run(direction.getValue());
-        MazeTile tile = MazeTile.fromValue(computer.getLastIntOutput());
-        return new MazeNode(point, tile, computer);
+        IntcodeMazeTile tile = IntcodeMazeTile.fromValue(computer.getLastIntOutput());
+        return new IntcodeMazeNode(point, tile, computer);
     }
 }

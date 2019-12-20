@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class MazeSolverTest {
+class PortalMazeSolverTest {
 
     static Stream<Arguments> dataProviderFlatMaze() {
         return Stream.of(
@@ -25,7 +25,7 @@ class MazeSolverTest {
     @MethodSource("dataProviderFlatMaze")
     void testFlatMaze(String path, Integer steps) {
         List<String> lines = ParseUtils.readLines(path);
-        MazeSolver solver = new MazeSolver(lines, true);
+        PortalMazeSolver solver = new PortalMazeSolver(lines, true);
         assertEquals(steps, solver.timeToTarget());
     }
 
@@ -41,7 +41,7 @@ class MazeSolverTest {
     @MethodSource("dataProviderBestAsteroid")
     void TestDeepMaze(String path, Integer steps) {
         List<String> lines = ParseUtils.readLines(path);
-        MazeSolver solver = new MazeSolver(lines, false);
+        PortalMazeSolver solver = new PortalMazeSolver(lines, false);
         assertEquals(steps, solver.timeToTarget());
     }
 }
