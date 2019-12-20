@@ -13,18 +13,35 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class MazeSolverTest {
 
-    static Stream<Arguments> dataProviderBestAsteroid() {
+    static Stream<Arguments> dataProviderFlatMaze() {
         return Stream.of(
                 arguments("helpers/maze/portals/test1.txt", 23),
-                arguments("helpers/maze/portals/test2.txt", 58)
+                arguments("helpers/maze/portals/test2.txt", 58),
+                arguments("helpers/maze/portals/test3.txt", 77)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("dataProviderFlatMaze")
+    void testFlatMaze(String path, Integer steps) {
+        List<String> lines = ParseUtils.readLines(path);
+        MazeSolver solver = new MazeSolver(lines, true);
+        assertEquals(steps, solver.timeToTarget());
+    }
+
+    static Stream<Arguments> dataProviderBestAsteroid() {
+        return Stream.of(
+                arguments("helpers/maze/portals/test1.txt", 26),
+                arguments("helpers/maze/portals/test2.txt", null),
+                arguments("helpers/maze/portals/test3.txt", 396)
         );
     }
 
     @ParameterizedTest
     @MethodSource("dataProviderBestAsteroid")
-    void TestTimeToTarget(String path, int steps) {
+    void TestDeepMaze(String path, Integer steps) {
         List<String> lines = ParseUtils.readLines(path);
-        MazeSolver solver = new MazeSolver(lines);
+        MazeSolver solver = new MazeSolver(lines, false);
         assertEquals(steps, solver.timeToTarget());
     }
 }

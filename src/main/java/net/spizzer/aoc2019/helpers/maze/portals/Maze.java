@@ -6,54 +6,75 @@ import net.spizzer.aoc2019.helpers.maze.Graph;
 import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.*;
-import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class Maze implements Graph<Point2D, MazeNode> {
-    private final Map<Point2D, Set<MazeNode>> connections;
+public class Maze implements Graph<MazeNode, MazeNode> {
+
+    private final Set<Point2D> walkable;
+    private final List<MazePortal> portals;
+
     private final MazeNode start;
     private final MazeNode end;
 
-    public Maze(List<String> lines) {
+    private boolean flatWorld;
+
+    public Maze(List<String> lines, boolean flatWorld) {
+        this.flatWorld = flatWorld;
         Map<Point2D, Character> input = ParseUtils.linesToCharMap(lines);
 
-        Map<Point2D, MazeNode> walkableNodes = input.entrySet().stream()
+        walkable = input.entrySet().stream()
                 .filter(entry -> entry.getValue().equals('.'))
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toMap(Function.identity(), MazeNode::new));
+                .collect(Collectors.toSet());
 
 
         Map<String, List<Point2D>> labels = parseLabels(input);
-        start = walkableNodes.get(labels.get("AA").get(0));
-        end = walkableNodes.get(labels.get("ZZ").get(0));
+        start = new MazeNode(labels.get("AA").get(0), 0);
+        end = new MazeNode(labels.get("ZZ").get(0), 0);
 
-        List<MazePortal> portals = labels.values().stream()
-                .filter(list -> list.size() == 2)
-                .map(list -> new MazePortal(list.get(0), list.get(1)))
+        portals = getPortals(labels);
+    }
+
+    private List<MazePortal> getPortals(Map<String, List<Point2D>> labels) {
+        List<Point2D> coordinates = labels.values().stream()
+                .flatMap(Collection::stream)
                 .collect(Collectors.toList());
+        int minX = coordinates.stream().mapToInt(key -> key.x).min().orElseThrow();
+        int maxX = coordinates.stream().mapToInt(key -> key.x).max().orElseThrow();
+        int minY = coordinates.stream().mapToInt(key -> key.y).min().orElseThrow();
+        int maxY = coordinates.stream().mapToInt(key -> key.y).max().orElseThrow();
 
-        connections = walkableNodes.values().stream()
-                .collect(Collectors.toMap(MazeNode::getKey, node -> makeConnections(node, walkableNodes, portals)));
+        Predicate<Point2D> isOuter = point -> point.x == minX || point.x == maxX
+                || point.y == minY || point.y == maxY;
+
+        return labels.values().stream()
+                .filter(list -> list.size() == 2)
+                .map(list -> isOuter.test(list.get(0))
+                        ? new MazePortal(list.get(0), list.get(1))
+                        : new MazePortal(list.get(1), list.get(0)))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Set<MazeNode> getConnections(MazeNode node) {
-        return connections.getOrDefault(node.getKey(), Set.of());
-    }
+        Point2D current = node.getPoint();
 
-    private static Set<MazeNode> makeConnections(MazeNode node, Map<Point2D, MazeNode> walkableNodes, List<MazePortal> portals) {
-        Point2D point = node.getKey();
+        Set<MazeNode> neighbours = Arrays.stream(Direction2D.values())
+                .map(current::addDirection)
+                .filter(walkable::contains)
+                .map(point -> new MazeNode(point, node.getLevel()))
+                .collect(Collectors.toSet());
 
-        Stream<Point2D> neighbours = Arrays.stream(Direction2D.values())
-                .map(point::addDirection);
-        Stream<Point2D> portalPoints = portals.stream()
-                .map(p -> p.otherEnd(point));
-
-        return Stream.concat(neighbours, portalPoints)
-                .map(walkableNodes::get)
+        Set<MazeNode> portals = this.portals.stream()
+                .map(p -> p.traverse(node, flatWorld))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
+
+        Set<MazeNode> result = new HashSet<>();
+        result.addAll(neighbours);
+        result.addAll(portals);
+        return result;
     }
 
     private static Map<String, List<Point2D>> parseLabels(Map<Point2D, Character> input) {
@@ -84,11 +105,11 @@ public class Maze implements Graph<Point2D, MazeNode> {
                 : "" + b + a;
     }
 
-    public MazeNode getStart() {
+    MazeNode getStart() {
         return start;
     }
 
-    public MazeNode getEnd() {
+    MazeNode getEnd() {
         return end;
     }
 }

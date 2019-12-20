@@ -2,6 +2,8 @@ package net.spizzer.aoc2019.helpers.geometry2d;
 
 import net.spizzer.aoc2019.utils.MathUtils;
 
+import java.util.Objects;
+
 public class Point2D {
     public final int x;
     public final int y;
@@ -68,6 +70,6 @@ public class Point2D {
 
     @Override
     public int hashCode() {
-        return toString().hashCode();
+        return Objects.hash(x, y);
     }
 }

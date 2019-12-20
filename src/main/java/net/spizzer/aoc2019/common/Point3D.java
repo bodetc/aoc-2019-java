@@ -3,6 +3,7 @@ package net.spizzer.aoc2019.common;
 import com.google.common.collect.ImmutableList;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.ToIntFunction;
 
 public class Point3D {
@@ -55,6 +56,6 @@ public class Point3D {
 
     @Override
     public int hashCode() {
-        return toString().hashCode();
+        return Objects.hash(x, y, y);
     }
 }

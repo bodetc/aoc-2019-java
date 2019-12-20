@@ -5,25 +5,27 @@ import net.spizzer.aoc2019.helpers.maze.portals.MazeSolver;
 
 import java.util.List;
 
-public class Day20 extends AbstractDay<MazeSolver, Integer, Void> {
+public class Day20 extends AbstractDay<List<String>, Integer, Integer> {
     @Override
     public int getDay() {
         return 20;
     }
 
     @Override
-    public MazeSolver parseInput(List<String> lines) {
-        return new MazeSolver(lines);
+    public List<String> parseInput(List<String> lines) {
+        return lines;
     }
 
     @Override
-    public Integer solveFirstStar(MazeSolver mazeSolver) {
+    public Integer solveFirstStar(List<String> lines) {
+        MazeSolver mazeSolver = new MazeSolver(lines, true);
         return mazeSolver.timeToTarget();
     }
 
     @Override
-    public Void solveSecondStar(MazeSolver mazeSolver) {
-        return null;
+    public Integer solveSecondStar(List<String> lines) {
+        MazeSolver mazeSolver = new MazeSolver(lines, false);
+        return mazeSolver.timeToTarget();
     }
 
     public static void main(String[] args) {
