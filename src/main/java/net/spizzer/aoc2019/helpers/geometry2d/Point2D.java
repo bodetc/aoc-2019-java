@@ -13,6 +13,11 @@ public class Point2D {
         this.y = y;
     }
 
+    public Point2D(long x, long y) {
+        this.x = Math.toIntExact(x);
+        this.y = Math.toIntExact(y);
+    }
+
     public int taxiDistance(Point2D other) {
         return Math.abs(other.x - x) + Math.abs(other.y - y);
     }

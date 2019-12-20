@@ -1,7 +1,6 @@
 package net.spizzer.aoc2019.intcode.maze;
 
 import net.spizzer.aoc2019.helpers.astar.GraphNode;
-import net.spizzer.aoc2019.helpers.geometry2d.Direction2D;
 import net.spizzer.aoc2019.helpers.geometry2d.Point2D;
 import net.spizzer.aoc2019.intcode.IntcodeComputer;
 
