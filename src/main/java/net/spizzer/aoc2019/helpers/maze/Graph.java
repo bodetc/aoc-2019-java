@@ -1,4 +1,4 @@
-package net.spizzer.aoc2019.helpers.astar;
+package net.spizzer.aoc2019.helpers.maze;
 
 import java.util.Set;
 

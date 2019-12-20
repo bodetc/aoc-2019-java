@@ -1,17 +1,17 @@
-package net.spizzer.aoc2019.helpers.astar;
+package net.spizzer.aoc2019.helpers.maze;
 
 import java.util.*;
 import java.util.function.Predicate;
 
-public class RouteFinder<K, T extends GraphNode<K>> {
-    private final Graph<K, T> graph;
+public class RouteFinder<K, T extends GraphNode<K>, G extends Graph<K, T>> {
+    private final G graph;
     private final Scorer<T> scorer;
 
     private final Queue<RouteNode<T>> openSet = new PriorityQueue<>();
     private final Map<K, RouteNode<T>> allNodes = new HashMap<>();
     private Optional<RouteNode<T>> target = Optional.empty();
 
-    public RouteFinder(Graph<K, T> graph, Scorer<T> scorer) {
+    public RouteFinder(G graph, Scorer<T> scorer) {
         this.graph = graph;
         this.scorer = scorer;
     }
@@ -58,5 +58,9 @@ public class RouteFinder<K, T extends GraphNode<K>> {
 
     protected Set<RouteNode<T>> getAllNodes() {
         return new HashSet<>(allNodes.values());
+    }
+
+    protected G getGraph() {
+        return graph;
     }
 }

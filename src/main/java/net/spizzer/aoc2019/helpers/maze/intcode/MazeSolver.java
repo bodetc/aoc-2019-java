@@ -1,16 +1,17 @@
-package net.spizzer.aoc2019.intcode.maze;
+package net.spizzer.aoc2019.helpers.maze.intcode;
 
 import net.spizzer.aoc2019.common.Reject;
-import net.spizzer.aoc2019.helpers.astar.RouteFinder;
-import net.spizzer.aoc2019.helpers.astar.RouteNode;
+import net.spizzer.aoc2019.helpers.maze.ConstantScorer;
+import net.spizzer.aoc2019.helpers.maze.RouteFinder;
+import net.spizzer.aoc2019.helpers.maze.RouteNode;
 import net.spizzer.aoc2019.helpers.geometry2d.Point2D;
 import net.spizzer.aoc2019.intcode.IntcodeComputer;
 
-public class MazeSolver extends RouteFinder<Point2D, MazeNode> {
+public class MazeSolver extends RouteFinder<Point2D, MazeNode, Maze> {
     private final MazeNode origin;
 
     public MazeSolver(long[] program) {
-        super(new Maze(), new NearestNeighbourScorer());
+        super(new Maze(), new ConstantScorer<>());
         IntcodeComputer computer = new IntcodeComputer(program);
         this.origin = new MazeNode(Point2D.ORIGIN, MazeTile.EMPTY, computer);
     }

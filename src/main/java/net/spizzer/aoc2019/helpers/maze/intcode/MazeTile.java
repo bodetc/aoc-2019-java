@@ -1,4 +1,4 @@
-package net.spizzer.aoc2019.intcode.maze;
+package net.spizzer.aoc2019.helpers.maze.intcode;
 
 import net.spizzer.aoc2019.common.Printable;
 import net.spizzer.aoc2019.common.ValueBase;

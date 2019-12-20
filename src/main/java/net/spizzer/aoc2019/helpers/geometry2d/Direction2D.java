@@ -34,4 +34,8 @@ public enum Direction2D implements ValueBase<Integer> {
     public Direction2D toRight() {
         return ValueBase.fromValue(values(), Math.floorMod((value + 1), 4));
     }
+
+    public Direction2D opposite() {
+        return ValueBase.fromValue(values(), Math.floorMod((value + 2), 4));
+    }
 }

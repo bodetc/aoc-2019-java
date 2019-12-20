@@ -2,12 +2,15 @@ package net.spizzer.aoc2019.utils;
 
 import net.spizzer.aoc2019.common.Point3D;
 import net.spizzer.aoc2019.common.Reject;
+import net.spizzer.aoc2019.helpers.geometry2d.Point2D;
 
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -26,6 +29,17 @@ public class ParseUtils {
             e.printStackTrace();
             return List.of();
         }
+    }
+
+    public static Map<Point2D, Character> linesToCharMap(List<String> lines) {
+        Map<Point2D, Character> characterMap = new HashMap<>();
+        for (int y = 0; y < lines.size(); y++) {
+            String line = lines.get(y);
+            for (int x = 0; x < line.length(); x++) {
+                characterMap.put(new Point2D(x, y), line.charAt(x));
+            }
+        }
+        return characterMap;
     }
 
     public static long[] parseProgram(List<String> lines) {

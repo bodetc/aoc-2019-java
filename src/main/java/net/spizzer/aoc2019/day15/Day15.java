@@ -1,7 +1,7 @@
 package net.spizzer.aoc2019.day15;
 
 import net.spizzer.aoc2019.AbstractDay;
-import net.spizzer.aoc2019.intcode.maze.MazeSolver;
+import net.spizzer.aoc2019.helpers.maze.intcode.MazeSolver;
 import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.List;

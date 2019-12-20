@@ -3,10 +3,12 @@ package net.spizzer.aoc2019.helpers.laser;
 import com.google.common.annotations.VisibleForTesting;
 import net.spizzer.aoc2019.helpers.geometry2d.Point2D;
 import net.spizzer.aoc2019.utils.MathUtils;
+import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -66,16 +68,12 @@ public class AsteroidLaser {
     }
 
     private static List<Point2D> parseInput(List<String> lines, char match) {
-        List<Point2D> asteroids = new ArrayList<>();
-        for (int y = 0; y < lines.size(); y++) {
-            String line = lines.get(y);
-            for (int x = 0; x < line.length(); x++) {
-                if (line.charAt(x) == match) {
-                    asteroids.add(new Point2D(x, y));
-                }
-            }
-        }
-        return asteroids;
+        return ParseUtils.linesToCharMap(lines)
+                .entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == match)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     @VisibleForTesting
