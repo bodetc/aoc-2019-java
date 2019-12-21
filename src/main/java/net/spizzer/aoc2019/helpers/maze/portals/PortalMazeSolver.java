@@ -42,7 +42,7 @@ public class PortalMazeSolver implements Graph<PortalMazeNode, PortalMazeNode> {
         RouteFinder<PortalMazeNode, PortalMazeNode> routeFinder = new RouteFinder<>(this, new ConstantScorer<>());
         RouteFinderResult result = routeFinder.findRoute(start,end::equals);
         return result.targetFound()
-                ? result.timeToTarget()
+                ? result.score()
                 : null;
     }
 

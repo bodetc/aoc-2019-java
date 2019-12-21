@@ -30,13 +30,18 @@ public class RouteFinderResult<T extends GraphNode> {
         return target != null;
     }
 
-    public int timeToTarget() {
+    public int score() {
         Reject.ifNull(target, "target is not defined");
-        return target.getRoute().size() - 1;
+        return target.getScore();
     }
 
     public T getTargetLocation() {
         Reject.ifNull(target, "target is not defined");
         return target.getCurrent();
+    }
+
+    public void printRoute() {
+        Reject.ifNull(target, "target is not defined");
+        target.getRoute().forEach(System.out::println);
     }
 }

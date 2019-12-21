@@ -20,7 +20,7 @@ public class IntcodeMazeSolver {
 
     public int timeToTarget() {
         RouteFinderResult<IntcodeMazeNode> target = findTarget();
-        return target.timeToTarget();
+        return target.score();
     }
 
     public int timeToExplore() {
