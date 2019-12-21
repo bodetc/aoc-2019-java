@@ -1,14 +1,14 @@
 package net.spizzer.aoc2019.helpers.maze.keys;
 
-import com.google.common.collect.Sets;
 import net.spizzer.aoc2019.common.TwoKeyMap;
 import net.spizzer.aoc2019.helpers.geometry2d.Point2D;
-import net.spizzer.aoc2019.helpers.maze.*;
+import net.spizzer.aoc2019.helpers.maze.Graph;
+import net.spizzer.aoc2019.helpers.maze.RouteFinder;
+import net.spizzer.aoc2019.helpers.maze.RouteFinderResult;
+import net.spizzer.aoc2019.helpers.maze.Scorer;
 import net.spizzer.aoc2019.helpers.maze.keys.scorer.TileMazeSolver;
-import net.spizzer.aoc2019.utils.ParseUtils;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,17 +17,25 @@ public class KeyMazeSolver implements Graph<KeyMazeNode, KeyMazeNode>, Scorer<Ke
 
     private final TwoKeyMap<Character, Character, Integer> costs;
     private final Set<Character> keys;
+    private final int robotCount;
 
-    public KeyMazeSolver(List<String> lines) {
-        Map<Point2D, Character> input = ParseUtils.linesToCharMap(lines);
-
+    public KeyMazeSolver(Map<Point2D, Character> input) {
         Set<Point2D> walkable = input.entrySet().stream()
                 .filter(entry -> entry.getValue() == '.')
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toSet());
 
+        int i = 0;
+        for (Map.Entry<Point2D, Character> entry : input.entrySet()) {
+            if (entry.getValue() == '@') {
+                entry.setValue(Character.forDigit(i, 10));
+                i++;
+            }
+        }
+        robotCount = i;
+
         Map<Character, Point2D> pointsOfInterest = input.entrySet().stream()
-                .filter(entry -> Character.isLetter(entry.getValue()) || entry.getValue() == '@')
+                .filter(entry -> Character.isLetter(entry.getValue()) || Character.isDigit(entry.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
 
         keys = pointsOfInterest.keySet().stream()
@@ -50,8 +58,7 @@ public class KeyMazeSolver implements Graph<KeyMazeNode, KeyMazeNode>, Scorer<Ke
 
     public Integer timeForAllKeys() {
         RouteFinder<KeyMazeNode, KeyMazeNode> routeFinder = new RouteFinder<>(this, this);
-        RouteFinderResult result = routeFinder.findRoute(new KeyMazeNode('@'), this::hasAllKeys);
-        //result.printRoute();
+        RouteFinderResult result = routeFinder.findRoute(new KeyMazeNode(robotCount), this::hasAllKeys);
 
         return result.targetFound()
                 ? result.score()
@@ -60,25 +67,27 @@ public class KeyMazeSolver implements Graph<KeyMazeNode, KeyMazeNode>, Scorer<Ke
 
     @Override
     public int computeCost(KeyMazeNode from, KeyMazeNode to) {
-        return costs.get(from.getName(), to.getName());
+        int cost = 0;
+        for (int i = 0; i < from.getPositionSize(); i++) {
+            Character fromPosition = from.getPosition(i);
+            Character toPosition = to.getPosition(i);
+
+            if (!fromPosition.equals(toPosition)) {
+                cost += costs.get(fromPosition, toPosition);
+            }
+        }
+        return cost;
     }
 
     @Override
     public Set<KeyMazeNode> getConnections(KeyMazeNode current) {
         Set<KeyMazeNode> connections = new HashSet<>();
-        Set<Character> keys = current.getKeys();
-        for (Character other : costs.getKeys(current.getName())) {
-            // Door
-            if (Character.isUpperCase(other)) {
-                if (keys.contains(Character.toLowerCase(other))) {
-                    connections.add(new KeyMazeNode(other, keys));
+        for (int i = 0; i < current.getPositionSize(); i++) {
+            Character position = current.getPosition(i);
+            for (Character newPosition : costs.getKeys(position)) {
+                if (current.canMoveTo(newPosition)) {
+                    connections.add(current.moveTo(i, newPosition));
                 }
-            // Key
-            } else if (Character.isLowerCase(other)) {
-                connections.add(new KeyMazeNode(other, Sets.union(keys, Set.of(other))));
-            // Starting point
-            } else {
-                connections.add(new KeyMazeNode(other, keys));
             }
         }
         return connections;
