@@ -20,6 +20,7 @@ import net.spizzer.aoc2019.day17.Day17;
 import net.spizzer.aoc2019.day18.Day18;
 import net.spizzer.aoc2019.day19.Day19;
 import net.spizzer.aoc2019.day20.Day20;
+import net.spizzer.aoc2019.day22.Day22;
 
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class Aoc2019 {
             new Day17(),
             new Day18(),
             new Day19(),
-            new Day20()
+            new Day20(),
+            new Day22()
     );
 
     public static void main(String[] args) {
