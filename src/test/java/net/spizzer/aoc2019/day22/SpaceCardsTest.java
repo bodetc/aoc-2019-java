@@ -82,6 +82,6 @@ class SpaceCardsTest {
                 .dealWithIncrement(3)
                 .cut(-1);
 
-        assertEquals(SpaceCards.fromArray(new int[]{9,2,5,8,1,4,7,0,3,6}), spaceCards);
+        assertEquals(SpaceCards.fromArray(new int[]{9, 2, 5, 8, 1, 4, 7, 0, 3, 6}), spaceCards);
     }
 }

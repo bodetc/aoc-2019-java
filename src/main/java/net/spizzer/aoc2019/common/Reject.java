@@ -27,7 +27,7 @@ public class Reject {
         }
     }
 
-    public static void always(String message) {
+    public static IllegalStateException always(String message) {
         throw new IllegalStateException(message);
     }
 }
