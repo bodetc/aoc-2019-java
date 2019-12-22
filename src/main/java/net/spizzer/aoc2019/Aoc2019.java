@@ -17,6 +17,7 @@ import net.spizzer.aoc2019.day14.Day14;
 import net.spizzer.aoc2019.day15.Day15;
 import net.spizzer.aoc2019.day16.Day16;
 import net.spizzer.aoc2019.day17.Day17;
+import net.spizzer.aoc2019.day18.Day18;
 import net.spizzer.aoc2019.day19.Day19;
 import net.spizzer.aoc2019.day20.Day20;
 
@@ -41,6 +42,7 @@ public class Aoc2019 {
             new Day15(),
             new Day16(),
             new Day17(),
+            new Day18(),
             new Day19(),
             new Day20()
     );

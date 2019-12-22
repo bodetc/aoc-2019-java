@@ -8,7 +8,7 @@ import net.spizzer.aoc2019.utils.ParseUtils;
 import java.util.List;
 import java.util.Map;
 
-public class Day18 extends AbstractDay<Map<Point2D, Character>, Integer, Void> {
+public class Day18 extends AbstractDay<Map<Point2D, Character>, Integer, Integer> {
     @Override
     public int getDay() {
         return 18;
@@ -26,8 +26,27 @@ public class Day18 extends AbstractDay<Map<Point2D, Character>, Integer, Void> {
     }
 
     @Override
-    public Void solveSecondStar(Map<Point2D, Character> input) {
-        return null;
+    public Integer solveSecondStar(Map<Point2D, Character> input) {
+        Point2D origin = input.entrySet().stream()
+                .filter(entry -> entry.getValue() == '@')
+                .map(Map.Entry::getKey)
+                .findAny()
+                .orElseThrow();
+
+        input.put(new Point2D(origin.x - 1, origin.y - 1), '@');
+        input.put(new Point2D(origin.x - 1, origin.y + 1), '@');
+        input.put(new Point2D(origin.x + 1, origin.y - 1), '@');
+        input.put(new Point2D(origin.x + 1, origin.y + 1), '@');
+
+        input.put(new Point2D(origin.x + 1, origin.y), '#');
+        input.put(new Point2D(origin.x - 1, origin.y), '#');
+        input.put(new Point2D(origin.x, origin.y - 1), '#');
+        input.put(new Point2D(origin.x, origin.y + 1), '#');
+        input.put(new Point2D(origin.x, origin.y), '#');
+
+
+        KeyMazeSolver keyMazeSolver = new KeyMazeSolver(input);
+        return keyMazeSolver.timeForAllKeys();
     }
 
     public static void main(String[] args) {
