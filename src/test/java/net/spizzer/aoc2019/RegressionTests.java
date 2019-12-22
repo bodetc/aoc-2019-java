@@ -54,7 +54,7 @@ class RegressionTests {
                 arguments(new Day18(), 5808, 1992),
                 arguments(new Day19(), 156, 2610980),
                 arguments(new Day20(), 686, 8384),
-                arguments(new Day22(), 2519, null)
+                arguments(new Day22(), 2519L, null)
         );
     }
 

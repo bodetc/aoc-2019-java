@@ -4,9 +4,7 @@ import net.spizzer.aoc2019.AbstractDay;
 
 import java.util.List;
 
-public class Day22 extends AbstractDay<List<String>, Integer, Void> {
-
-    private static final int DECK_SIZE = 10007;
+public class Day22 extends AbstractDay<List<String>, Long, Void> {
 
     @Override
     public int getDay() {
@@ -19,10 +17,8 @@ public class Day22 extends AbstractDay<List<String>, Integer, Void> {
     }
 
     @Override
-    public Integer solveFirstStar(List<String> instructions) {
-        SpaceCardsShuffler shuffler = new SpaceCardsShuffler(DECK_SIZE);
-        SpaceCards spaceCards = shuffler.shuffle(instructions);
-        return spaceCards.positionOf(2019);
+    public Long solveFirstStar(List<String> instructions) {
+        return SpaceCardsTracker.track(instructions, 10007, 2019, 1, true);
     }
 
     @Override
