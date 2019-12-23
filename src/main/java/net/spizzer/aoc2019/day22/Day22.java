@@ -18,7 +18,7 @@ public class Day22 extends AbstractDay<List<String>, Long, Void> {
 
     @Override
     public Long solveFirstStar(List<String> instructions) {
-        return SpaceCardsTracker.track(instructions, 10007, 2019, 1, true);
+        return SpaceDeckShuffle.applyOnce(instructions, 10007).positionOf(2019);
     }
 
     @Override
